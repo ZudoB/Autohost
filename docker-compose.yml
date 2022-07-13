@@ -1,0 +1,29 @@
+version: "3.9"
+
+volumes:
+  database:
+
+services:
+  server:
+    container_name: autohost
+    env_file: server.env.local
+    build: ./server
+    ports:
+      - "8080:8080"
+    environment:
+      API_PORT: 8080
+      REDIS_URI: redis://redis
+      MONGO_URI: mongodb://mongo/autohost
+
+  redis:
+    container_name: autohost_redis
+    command: bash -c "redis-server --appendonly yes"
+    image: redis
+    volumes:
+      - /var/autohost/redis:/data
+
+  mongo:
+    container_name: autohost_mongo
+    image: mongo
+    volumes:
+      - /var/autohost/mongodb:/data/db

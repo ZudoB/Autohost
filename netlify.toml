@@ -1,0 +1,11 @@
+[build]
+    base = "web"
+    command = "yarn build"
+    publish = "dist"
+    [build.environment]
+        VUE_APP_API_BASE = "https://yuiko.autoho.st/"
+
+[[redirects]]
+    from = "/*"
+    to = "/index.html"
+    status = 200
